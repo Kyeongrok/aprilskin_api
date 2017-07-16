@@ -1,29 +1,31 @@
 var express = require('express');
 var router = express.Router();
-var connection=require('../dbconnection'); //reference of dbconnection.js
+var pool=require('../dbconnection'); //reference of dbconnection.js
 
 let client = require("cheerio-httpcli");
 let baseUrl = "https://datahub.cafe24.com/openapi/shop/order/v1/search";
 
 
-
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-
-
-
-
-    connection.query('SELECT * FROM product',function(err,rows)     {
+    pool.query('SELECT * FROM product',function(err,rows)     {
         if(err)
             console.log("Error Selecting : %s ",err );
+        res.send(rows);
+    });
 
+});
+
+router.get('/product/list/', function(req, res, next) {
+    pool.query('SELECT * FROM product',function(err,rows)     {
+        if(err)
+            console.log("Error Selecting : %s ",err );
         res.send(rows);
     });
 
 });
 
 router.get('/list', function(req, res, next) {
-
     console.log(req.query.start_datetime);
     console.log(req.query.end_datetime);
     let param = {
@@ -53,21 +55,13 @@ router.get('/list', function(req, res, next) {
                 "ship_message":item['ship_message'],
                 "product_code":productItem['product_code'],
                 "order_item_qty":productItem['order_item_qty'],
-                "item_code":productItem['item_code']
+                "item_code":productItem['item_code'],
             }
 
             resultlist.push(requireObject);
         }
     }
-
     res.send(resultlist);
-
-    connection.query('SELECT * FROM product',function(err,rows)     {
-        if(err)
-            console.log("Error Selecting : %s ",err );
-        // res.send(rows);
-    });
-
 });
 
 module.exports = router;

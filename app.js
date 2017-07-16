@@ -4,8 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var connection  = require('express-myconnection');
 var mysql = require('mysql');
+const cors = require('cors');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -24,11 +24,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(cors());
 
 app.use('/', index);
 app.use('/users', users);
 app.use('/cafe24', cafe24);
+
+var corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
 
 
 // catch 404 and forward to error handler
@@ -49,6 +55,9 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.get('/', cors(corsOptions), (req, res) => {
+    res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
+});
 
 
 module.exports = app;
