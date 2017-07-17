@@ -24,7 +24,7 @@ rsync -ar /var/www/electron_react/build/ /var/www/html
 ```
 /var/www/electron_react
 forever list
-forever start server
+forever start --minUptime 1000 --spinSleepTime 1000 ./bin/www
 ```
 
 ### 표준시 서울로 바꾸기
