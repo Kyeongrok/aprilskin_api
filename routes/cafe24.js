@@ -13,17 +13,45 @@ router.get('/', function(req, res, next) {
             console.log("Error Selecting : %s ",err );
         res.send(rows);
     });
-
 });
 
 router.get('/product/list/', function(req, res, next) {
-    pool.query('SELECT * FROM product',function(err,rows)     {
+    pool.query('SELECT * FROM product',function(err,rows){
+        if(err)
+            console.log("Error Selecting : %s ",err );
+
+        let getMap = (list) =>{
+            let resultMap = {};
+            list.forEach(function(item) {
+                resultMap[item['code']+"-"+item['item_no']] = item;
+            });
+            return resultMap;
+        }
+
+        res.send(getMap(rows));
+    });
+});
+
+router.get('/product/insert/', function(req, res, next) {
+    console.log(req.query.code);
+    console.log(req.query.item_no);
+    console.log(req.query.product_code_own);
+    console.log(req.query.product_name);
+    console.log(req.query.quentity);
+    console.log(req.query.description);
+
+    var data = {
+        code: req.query.code,
+        item_no: req.query.item_no,
+    };
+
+    pool.query("INSERT INTO product set ? ",data,function(err,rows)     {
         if(err)
             console.log("Error Selecting : %s ",err );
         res.send(rows);
     });
-
 });
+
 
 router.get('/list', function(req, res, next) {
     console.log(req.query.start_datetime);
