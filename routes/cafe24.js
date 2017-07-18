@@ -23,7 +23,7 @@ router.get('/product/list/', function(req, res, next) {
         let getMap = (list) =>{
             let resultMap = {};
             list.forEach(function(item) {
-                resultMap[item['code']+"-"+item['item_no']] = item;
+                resultMap[item['code']+"-"+item['item_code']] = item;
             });
             return resultMap;
         }
@@ -34,7 +34,7 @@ router.get('/product/list/', function(req, res, next) {
 
 router.get('/product/insert/', function(req, res, next) {
     console.log(req.query.code);
-    console.log(req.query.item_no);
+    console.log(req.query.item_code);
     console.log(req.query.product_code_own);
     console.log(req.query.product_name);
     console.log(req.query.quentity);
@@ -42,7 +42,7 @@ router.get('/product/insert/', function(req, res, next) {
 
     var data = {
         code: req.query.code,
-        item_no: req.query.item_no,
+        item_code: req.query.item_code,
     };
 
     pool.query("INSERT INTO product set ? ",data,function(err,rows)     {
