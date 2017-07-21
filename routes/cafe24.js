@@ -52,6 +52,18 @@ router.get('/product/insert/', function(req, res, next) {
     });
 });
 
+router.get('/product/delete/', function(req, res, next) {
+    console.log(req.query.id);
+
+    let id = req.query.id;
+
+    pool.query("DELETE FROM product WHERE id= ? ",[id],function(err,rows)     {
+        if(err)
+            console.log("Error Selecting : %s ",err );
+        res.send(rows);
+    });
+});
+
 
 router.get('/list', function(req, res, next) {
     console.log(req.query.start_datetime);

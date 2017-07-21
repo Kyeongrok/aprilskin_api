@@ -4,12 +4,19 @@ Aprilskin cafe24 주문 정보를 만들어준다.
 ## 접속 방법
 ```
 http://ec2-13-59-102-169.us-east-2.compute.amazonaws.com/index.html
+http://localhost:9000/cafe24/list?start_datetime=2017-07-17+01:40:00&end_datetime=2017-07-17+02:40:00
 ```
 위 주소로 접속 한다.
 
 ### 사용법
+#### 삽입(insert)
 ```
-http://localhost:9000/cafe24/list?start_datetime=2017-07-17+01:40:00&end_datetime=2017-07-17+02:40:00
+http://localhost:9000/cafe24/product/insert?code=P00000TY&item_code=000A&quentity=1
+```
+
+#### 지우기(delete)
+```
+http://localhost:9000/cafe24/product/delete?id=9
 ```
 
 ### 배포하는 방법
