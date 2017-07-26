@@ -53,6 +53,31 @@ router.get('/product/insert/', function(req, res, next) {
     });
 });
 
+router.get('/product/modify/', function(req, res, next) {
+    console.log(req.query.id);
+
+    let id = req.query.id;
+
+    console.log(req.query.code);
+    console.log(req.query.item_code);
+    console.log(req.query.product_code_own);
+    console.log(req.query.product_name);
+    console.log(req.query.quentity);
+    console.log(req.query.description);
+
+    var data = {
+        code: req.query.code,
+        item_code: req.query.item_code,
+        quentity : req.query.quentity
+    };
+
+    pool.query("UPDATE product set ? WHERE id = ? ", [data,id],function(err,rows)     {
+        if(err)
+            console.log("Error Selecting : %s ",err );
+        res.send(rows);
+    });
+});
+
 router.get('/product/delete/', function(req, res, next) {
     console.log(req.query.id);
 
