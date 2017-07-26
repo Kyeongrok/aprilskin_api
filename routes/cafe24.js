@@ -43,6 +43,7 @@ router.get('/product/insert/', function(req, res, next) {
     var data = {
         code: req.query.code,
         item_code: req.query.item_code,
+        quentity: req.query.quentity
     };
 
     pool.query("INSERT INTO product set ? ",data,function(err,rows)     {
