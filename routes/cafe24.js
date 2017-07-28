@@ -90,6 +90,23 @@ router.get('/product/delete/', function(req, res, next) {
     });
 });
 
+router.get('/originlist', function(req, res, next) {
+    console.log(req.query.start_datetime);
+    console.log(req.query.end_datetime);
+    let param = {
+        "service_type":"aprilskinkor"
+        ,"mall_id":"onesper"
+        ,"data_type":"json"
+        ,"auth_code":"995ff59dd187520a69b3a89cc2e71e28"
+        ,"start_datetime":req.query.start_datetime
+        ,"end_datetime":req.query.end_datetime
+        ,"limit":2000
+    }
+
+    var result = client.fetchSync(baseUrl, param);
+
+    res.send(result);
+});
 
 router.get('/list', function(req, res, next) {
     console.log(req.query.start_datetime);
@@ -104,10 +121,14 @@ router.get('/list', function(req, res, next) {
         ,"limit":2000
     }
 
-    var result = client.fetchSync(baseUrl, param);
-    var json = JSON.parse(result.body);
+    var response = client.fetchSync(baseUrl, param);
+    var json = JSON.parse(response.body);
 
-    let resultlist = [];
+    let result = {};
+
+    result['startDatetime'] = req.query.start_datetime;
+    result['endDatetime'] = req.query.end_datetime;
+    let resultList = [];
 
     for(let item of json.response.result) {
 
@@ -124,10 +145,11 @@ router.get('/list', function(req, res, next) {
                 "item_code":productItem['item_code'],
             }
 
-            resultlist.push(requireObject);
+            resultList.push(requireObject);
         }
     }
-    res.send(resultlist);
+    result['list'] = resultList;
+    res.send(result);
 });
 
 module.exports = router;
