@@ -103,9 +103,10 @@ router.get('/originlist', function(req, res, next) {
         ,"limit":2000
     }
 
-    var result = client.fetchSync(baseUrl, param);
+    var response = client.fetchSync(baseUrl, param);
+    var json = JSON.parse(response.body);
 
-    res.send(result);
+    res.send(json);
 });
 
 router.get('/list', function(req, res, next) {

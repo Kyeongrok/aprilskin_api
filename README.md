@@ -9,6 +9,11 @@ http://localhost:9000/cafe24/list?start_datetime=2017-07-17+01:40:00&end_datetim
 위 주소로 접속 한다.
 
 ### 사용법
+
+#### 기본 주문 데이터 조회
+```
+http://localhost:9000/cafe24/originlist?start_datetime=2017-07-28+18:00:01&end_datetime=2017-07-28+24:00:00
+```
 #### 삽입(insert)
 ```
 http://localhost:9000/cafe24/product/insert?code=P00000TY&item_code=000A&quentity=1
