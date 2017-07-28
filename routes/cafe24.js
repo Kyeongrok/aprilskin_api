@@ -37,12 +37,14 @@ router.get('/product/insert/', function(req, res, next) {
     console.log(req.query.item_code);
     console.log(req.query.product_code_own);
     console.log(req.query.product_name);
+    console.log(req.query.own_item_code);
     console.log(req.query.quentity);
     console.log(req.query.description);
 
     var data = {
         code: req.query.code,
         item_code: req.query.item_code,
+        own_item_code: req.query.own_item_code,
         quentity: req.query.quentity
     };
 
@@ -62,12 +64,14 @@ router.get('/product/modify/', function(req, res, next) {
     console.log(req.query.item_code);
     console.log(req.query.product_code_own);
     console.log(req.query.product_name);
+    console.log(req.query.own_item_code);
     console.log(req.query.quentity);
     console.log(req.query.description);
 
     var data = {
         code: req.query.code,
         item_code: req.query.item_code,
+        own_item_code: req.query.own_item_code,
         quentity : req.query.quentity
     };
 
